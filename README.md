@@ -1,20 +1,28 @@
-## Track :  1599. Ideas that can boost fitness activites and assist in keeping fit.
+**Track: 1599. Ideas that can Boost Fitness Activities and Assist in Keeping Fit**
 
-## Setup 
-### Manual install
-1. Clone this repository
+**Setup Instructions**
+
+**Manual Installation**
+
+1. **Clone the Repository**
+
+   Open your terminal and run:
+2. **Install Dependencies**
+
+- For JavaScript dependencies:
+  ```
+  npm install
+  ```
+
+- For Python dependencies:
+  ```
+  pip install -r requirements.txt
+  ```
+
+3. **Run the Program**
+
+In the same terminal, execute:
 ```
-git clone https://github.com/RedLordezh7Venom/VPeakFit.git
-cd VPeakFit
-```
-2. Install Requirements
-```
-npm install
-pip install -r requirements.txt
-```
-3. Run the program
-In the same terminal type:
-```
-npm run dev
+npm run dev`
 python app.py
 ```
