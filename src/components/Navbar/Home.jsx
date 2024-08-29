@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Logo from "../Body/Logo/Logo";
+import Carousel from "../Body/Carousel/Carousel";
+import Panel from "../Body/Panel/panel";
 
 const Home = () => {
-  return <Link to="/">Home</Link>;
+  return (
+    <>
+      <Logo />
+      <Carousel />
+      <Panel />
+    </>
+  );
 };
 
 export default Home;

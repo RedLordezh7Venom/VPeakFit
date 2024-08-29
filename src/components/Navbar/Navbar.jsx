@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Home from "./Home";
-import SignIn from "../Body/SignIn/SignIn";
+import { Link } from "react-router-dom";
 import MobileNav from "./MobileNav/MobileNav";
 import "./Navbar.css";
 
@@ -21,22 +20,26 @@ const Navbar = () => {
             <div className="name text-white font-bold text-2xl">VPeakFit</div>
           </div>
           <ul>
-            <li>
-              <a className="menu-item text-md flex gap-2" href="">
-                <i class="fa-solid fa-house"></i>
-                <Home />
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <a className="menu-item text-md" href="">
-                <i class="fa-solid fa-user"></i>
-              </a>
-              <a className="menu-item text-md" href="">
-                <SignIn />
-              </a>
-            </li>
+            <Link to="/">
+              <li>
+                <a className="menu-item text-md flex gap-2" href="">
+                  <i class="fa-solid fa-house"></i>
+                  Home
+                </a>
+              </li>
+            </Link>
+            <Link to="/login">
+              <li className="flex gap-2">
+                <a className="menu-item text-md" href="">
+                  <i class="fa-solid fa-user"></i>
+                </a>
+                <a className="menu-item text-md" href="">
+                  Login
+                </a>
+              </li>
+            </Link>
             <button
-              className="gap-2 contact-btn text-md px-3 py-2 rounded-lg bg-white text-blue-500"
+              className="gap-2 contact-btn text-md px-3 rounded-lg bg-white text-blue-500 contact_btn"
               onClick={() => {}}
             >
               Contact Us

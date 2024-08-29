@@ -121,7 +121,7 @@ const UserInjuryInput = () => {
               />
             </div>
 
-            <div className="calculate_injury_group">
+            <div className="calculate-group">
               <label>
                 Injury Status <span style={{ color: "red" }}>*</span>
               </label>
@@ -184,7 +184,6 @@ const UserInjuryInput = () => {
               Predict
             </button>
           </form>
-
           {prediction && <p className="result">{prediction}</p>}
         </div>
 
@@ -229,7 +228,6 @@ const UserInjuryInput = () => {
               Get Recommendations
             </button>
           </form>
-
           {recommendations && <p className="result"><ReactMarkdown>{recommendations}</ReactMarkdown></p>}
         </div>
       </section>
