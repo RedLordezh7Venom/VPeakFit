@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Chatbot.css";
-import dotenv from 'dotenv'
-dotenv.config();
 const Chatbot = () => {
-  const OPENAI_API_KEY =process.env.REACT_APP_OPENAI_KEY;
+  const OPENAI_API_KEY ="";
   const API_URL = "https://api.openai.com/v1/chat/completions";
 
   const [messages, setMessages] = useState([
