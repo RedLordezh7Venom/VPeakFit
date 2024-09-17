@@ -21,8 +21,15 @@
 
 3. **Run the Program**
 
-In the same terminal, execute:
+In a terminal, execute:
 ```
-npm run dev`
+npm run dev
+```
+2.
+```
 python app.py
+```
+```
+cd backend
+npm run start
 ```
