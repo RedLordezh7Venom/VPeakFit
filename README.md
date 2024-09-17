@@ -29,6 +29,7 @@ npm run dev
 ```
 python app.py
 ```
+3.
 ```
 cd backend
 npm run start
