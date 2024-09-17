@@ -32,5 +32,6 @@ python app.py
 3.
 ```
 cd backend
+npm install
 npm run start
 ```

@@ -3,7 +3,7 @@ import Logo from "../Body/Logo/Logo";
 import Carousel from "../Body/Carousel/Carousel";
 import Panel from "../Body/Panel/panel";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Logo />
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

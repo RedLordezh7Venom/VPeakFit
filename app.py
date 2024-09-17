@@ -1,24 +1,45 @@
-import numpy as np
 from flask import Flask, request, jsonify
-from werkzeug.utils import secure_filename
-import os
-import pickle
-from diet import rate_meal, bmi
 from flask_cors import CORS
-# Create app
+import os
+import numpy as np
+from diet import rate_meal, bmi
+from werkzeug.utils import secure_filename
+import pickle
+
+# Google API key and langchain imports
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage
+import google.generativeai as genai
+
+# Initialize Flask app
 app = Flask(__name__)
 CORS(app)
-# Define upload folder and allowed extensions
+
+# Upload folder and allowed file extensions
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Load model
+# Load injury prediction model
 model = pickle.load(open("injury_model.pkl", "rb"))
 
+# Initialize Google API key for the chatbot
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', 'your-google-api-key')
+llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=GOOGLE_API_KEY)
+
+# Utility functions
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Chatbot logic
+def chatbot(input_text):
+    message = HumanMessage(
+        content=f"The user says: '{input_text}'. You are VPeakFit, an advanced AI-powered fitness assistant integrated into a holistic fitness solution. Your task is to provide personalized fitness and health advice based on user input. Respond in a friendly, motivating, and professional tone."
+    )
+    response = llm.invoke([message])
+    return response.content
+
+# Routes
 
 @app.route("/", methods=["GET"])
 def home():
@@ -77,7 +98,7 @@ def exercise():
         goal = request.form.get('goal')
         profession = request.form.get('profession')
         # Call the exercise function
-        tips = exerciser(age,weight,goal,profession)
+        tips = exerciser(age, weight, goal, profession)
         
         # Return JSON response
         return jsonify({"tips": tips})
@@ -124,5 +145,12 @@ def bmi_check():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Chatbot route
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('message')
+    response = chatbot(user_input)
+    return jsonify({"response": response})
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

@@ -5,6 +5,27 @@
   margin-left: 2rem;
   margin-bottom: 2rem;
 }
+.loading-spinner {
+  border: 4px solid #f3f3f3; /* Light grey background */
+  border-top: 4px solid #3498db; /* Blue color for the spinner */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto; /* Center the spinner */
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 #calculate-diet{
   margin-bottom: 2rem;
   display: grid;
@@ -53,6 +74,14 @@
   border: 2px solid #8BC34A;
   font-size: 15px;
   border-radius: 0.3rem;
+}
+.result{
+  margin: 1rem;
+  margin-left: 0;
+  border: 3px solid rgb(246, 21, 21);
+  border-style: double;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 @media (max-width:650px){

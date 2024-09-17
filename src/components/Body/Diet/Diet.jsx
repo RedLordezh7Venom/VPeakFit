@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./Diet.css";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
 const Diet = () => {
-  // State for form inputs
   const [user, setUser] = useState({
     age: "",
     weight: "",
@@ -13,19 +12,18 @@ const Diet = () => {
     Height: "",
   });
 
-  // State for image handling
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [bmi, setBMI] = useState("");
   const [dietTips, setDietTips] = useState("");
+  const [loadingDiet, setLoadingDiet] = useState(false); // Loading state for diet prediction
+  const [loadingBMI, setLoadingBMI] = useState(false); // Loading state for BMI calculation
 
-  // Handle form input changes
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // Handle file input changes
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -34,21 +32,19 @@ const Diet = () => {
     }
   };
 
-  // Handle image upload
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!imageFile) return;
 
     const formData = new FormData();
-    formData.append("image", imageFile); // Append image file
-
-    // Append form fields
+    formData.append("image", imageFile);
     formData.append("age", user.age);
     formData.append("weight", user.weight);
     formData.append("goal", user.goal);
     formData.append("profession", user.profession);
 
     try {
+      setLoadingDiet(true); // Show loading spinner for diet prediction
       const response = await fetch("http://127.0.0.1:5000/diet", {
         method: "POST",
         body: formData,
@@ -58,13 +54,15 @@ const Diet = () => {
     } catch (error) {
       console.error("Error uploading file:", error);
       setDietTips("Error fetching diet tips");
+    } finally {
+      setLoadingDiet(false); // Hide spinner
     }
   };
 
-  // Handle BMI calculation
   const handleBMI = async (e) => {
     e.preventDefault();
     try {
+      setLoadingBMI(true); // Show loading spinner for BMI calculation
       const response = await fetch("http://127.0.0.1:5000/bmi_check", {
         method: "POST",
         headers: {
@@ -78,6 +76,8 @@ const Diet = () => {
     } catch (error) {
       console.error("Error:", error);
       setBMI("Error fetching BMI result");
+    } finally {
+      setLoadingBMI(false); // Hide spinner
     }
   };
 
@@ -161,10 +161,10 @@ const Diet = () => {
               <label>
                 Upload Image <span style={{ color: "red" }}>*</span>
               </label>
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleFileChange} 
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
                 required
               />
               {image && (
@@ -175,24 +175,28 @@ const Diet = () => {
                 />
               )}
               <div>
-                <button 
-                  className="button" 
-                  type="button"
-                  onClick={handleUpload}
-                >
-                  Upload Image
+                <button className="Submit_button" type="submit">
+                  Predict
                 </button>
+                {/* onClick={handleUpload} */}
               </div>
             </div>
 
-            <button 
-              type="submit" 
-              className="button"
-            >
+            {/* <button type="submit" className="button">
               Predict
-            </button>
+            </button> */}
           </form>
-          {dietTips && <p className="result"><ReactMarkdown>{dietTips}</ReactMarkdown></p>}
+
+          {/* Show spinner only for diet prediction */}
+          {loadingDiet ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            dietTips && (
+              <p className="result">
+                <ReactMarkdown>{dietTips}</ReactMarkdown>
+              </p>
+            )
+          )}
         </div>
 
         <h1 className="calculate-title">Calculate Your BMI</h1>
@@ -232,14 +236,21 @@ const Diet = () => {
               />
             </div>
 
-            <button 
-              type="submit" 
-              className="button"
-            >
+            <button type="submit" className="button">
               Calculate BMI
             </button>
           </form>
-          {bmi && <p className="result"><ReactMarkdown>{bmi}</ReactMarkdown></p>}
+
+          {/* Show spinner only for BMI calculation */}
+          {loadingBMI ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            bmi && (
+              <p className="result">
+                <ReactMarkdown>{bmi}</ReactMarkdown>
+              </p>
+            )
+          )}
         </div>
       </section>
     </>

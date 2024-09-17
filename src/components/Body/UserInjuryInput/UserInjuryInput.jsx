@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserInjuryInput.css";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
 const UserInjuryInput = () => {
   const [user, setUser] = useState({
@@ -16,6 +16,8 @@ const UserInjuryInput = () => {
 
   const [prediction, setPrediction] = useState("");
   const [recommendations, setRecommendations] = useState("");
+  const [loadingPredict, setLoadingPredict] = useState(false); // Loading state for prediction
+  const [loadingRecommendations, setLoadingRecommendations] = useState(false); // Loading state for recommendations
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -25,6 +27,7 @@ const UserInjuryInput = () => {
   const handlePredict = async (e) => {
     e.preventDefault();
     try {
+      setLoadingPredict(true); // Show loading spinner for prediction
       const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
         headers: {
@@ -38,12 +41,15 @@ const UserInjuryInput = () => {
     } catch (error) {
       console.error("Error:", error);
       setPrediction("Error fetching prediction");
+    } finally {
+      setLoadingPredict(false); // Hide spinner
     }
   };
 
   const handleRecommendations = async (e) => {
     e.preventDefault();
     try {
+      setLoadingRecommendations(true); // Show loading spinner for recommendations
       const response = await fetch("http://127.0.0.1:5000/recommendations", {
         method: "POST",
         headers: {
@@ -57,6 +63,8 @@ const UserInjuryInput = () => {
     } catch (error) {
       console.error("Error:", error);
       setRecommendations("Error fetching recommendations");
+    } finally {
+      setLoadingRecommendations(false); // Hide spinner
     }
   };
 
@@ -151,7 +159,9 @@ const UserInjuryInput = () => {
                 id="traningIntensity"
                 required
               >
-                <option value="">-Select- .. time required to recover injury</option>
+                <option value="">
+                  -Select- .. time required to recover injury
+                </option>
                 <option value="0">0 to 1 hours</option>
                 <option value="1">1 to 2 hours</option>
                 <option value="2">4+ hours </option>
@@ -184,7 +194,12 @@ const UserInjuryInput = () => {
               Predict
             </button>
           </form>
-          {prediction && <p className="result">{prediction}</p>}
+          {/* Show spinner only for prediction */}
+          {loadingPredict ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            prediction && <p className="result">{prediction}</p>
+          )}
         </div>
 
         <h1 className="calculate-title">Tips to prevent injury</h1>
@@ -228,7 +243,16 @@ const UserInjuryInput = () => {
               Get Recommendations
             </button>
           </form>
-          {recommendations && <p className="result"><ReactMarkdown>{recommendations}</ReactMarkdown></p>}
+          {/* Show spinner only for recommendations */}
+          {loadingRecommendations ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            recommendations && (
+              <p className="result">
+                <ReactMarkdown>{recommendations}</ReactMarkdown>
+              </p>
+            )
+          )}
         </div>
       </section>
     </>

@@ -1,5 +1,4 @@
 .nav-wrapper{
-  background-color: #8BC34A;
   padding: 0.5rem;
   position: sticky;
   top: 0;
@@ -10,10 +9,20 @@
   max-width: 1300px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 1rem;
   margin: 0 auto;
 }
+.nav-container{
+  display: flex;
+  align-items: center;
+}
+.logo-section{
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+} 
+
 .nav-content ul{
   display: flex;
   align-items: center;
@@ -54,14 +63,13 @@
 }
 .contact-btn{
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 450;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #0140b4;
   background: white;
-  width: 70%;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   outline: 1.5px solid transparent;
   border-radius: 0.2rem;
   cursor: pointer;
@@ -95,6 +103,23 @@
   border: white;
   background: white;
 }
+
+@media (max-width: 1325px) {
+  .nav-wrapper{
+    padding: 0.3rem 2rem;
+  }
+  .logo-section{
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+  } 
+  .login_content{
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+  }
+} 
+
 @media (max-width: 768px) {
   .menu-btn{
     display: block;
@@ -102,10 +127,26 @@
   .nav-content ul{
     display: none;
   }
+  .nav-content{
+    display: flex;
+  }
+  .logo-section{
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  } 
+  .login_content{
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .contact_btn{
+    display: none;
+  }
+  .popup-button{
+    display: flex;
+    float: right;
+  }
 }
 
-@media (max-width: 1325px) {
-  .nav-wrapper{
-    padding: 0 2rem;
-  }
-} 

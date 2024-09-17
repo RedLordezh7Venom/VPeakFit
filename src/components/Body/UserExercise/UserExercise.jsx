@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserExercise.css";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
 const UserExercise = () => {
   const [user, setUser] = useState({
@@ -11,6 +11,7 @@ const UserExercise = () => {
   });
 
   const [exercise, setExercise] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -19,6 +20,7 @@ const UserExercise = () => {
 
   const handleExercise = async (e) => {
     e.preventDefault();
+    setLoading(true); // Show spinner
     try {
       const response = await fetch("http://127.0.0.1:5000/exercise", {
         method: "POST",
@@ -33,6 +35,8 @@ const UserExercise = () => {
     } catch (error) {
       console.error("Error:", error);
       setExercise("Error fetching recommendations");
+    } finally {
+      setLoading(false); // Hide spinner
     }
   };
 
@@ -117,7 +121,17 @@ const UserExercise = () => {
               Predict
             </button>
           </form>
-          {exercise && <p className="result"><ReactMarkdown>{exercise}</ReactMarkdown></p>}
+
+          {/* Show spinner if loading */}
+          {loading ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            exercise && (
+              <p className="result">
+                <ReactMarkdown>{exercise}</ReactMarkdown>
+              </p>
+            )
+          )}
         </div>
       </section>
     </>

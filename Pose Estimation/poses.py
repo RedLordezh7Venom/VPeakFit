@@ -10,6 +10,7 @@ pose = mp_pose.Pose()
 
 # Function to calculate the angle between three points.
 def calculate_angle(a, b, c):
+    # Calculate the angle in degrees
     angle = math.degrees(math.atan2(c[1] - b[1], c[0] - b[0]) - math.atan2(a[1] - b[1], a[0] - b[0]))
     angle = angle + 360 if angle < 0 else angle
     return angle
@@ -92,7 +93,8 @@ while cap.isOpened():
                 status = "OK"
                 correct_angle_count += 1
 
-            cv2.putText(frame, f"{angle_name_list[itr]}: {status}", pos_on_screen[itr],
+            # Display angle and status
+            cv2.putText(frame, f"{angle_name_list[itr]}: {angle_obtained:.2f}° {status}", pos_on_screen[itr],
                         cv2.FONT_HERSHEY_PLAIN, 1.4, (240,0,255), 1)
 
         # Display posture correctness
