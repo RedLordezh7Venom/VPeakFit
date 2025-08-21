@@ -1,56 +1,61 @@
-import React from "react";
-import "./Services.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import ServiceCard from './ServiceCard';
 
 const Services = () => {
+  const services = [
+    {
+      id: 1,
+      title: 'Diet Planner',
+      icon: 'fa-solid fa-bowl-food',
+      description: 'Get personalized diet plans tailored to your fitness goals and dietary preferences.',
+      path: '/diet'
+    },
+    {
+      id: 2,
+      title: 'Posture Corrector',
+      icon: 'fa-solid fa-person',
+      description: 'Improve your posture with our AI-powered analysis and corrective exercises.',
+      path: '/posture'
+    },
+    {
+      id: 3,
+      title: 'Injury And Risk Manager',
+      icon: 'fa-solid fa-user-injured',
+      description: 'Identify potential injury risks and get personalized prevention strategies.',
+      path: '/injury'
+    },
+    {
+      id: 4,
+      title: 'Exercise Recommender',
+      icon: 'fa-solid fa-person-walking',
+      description: 'Discover the perfect workouts based on your fitness level and goals.',
+      path: '/userexercise'
+    },
+  ];
+
   return (
-    <>
-      <div className="services p-1 m-2 " id="main_service_container">
-        <br />
-        <h1 className="font-bold text-3xl text-blue-500 my-2 mx-1 p-2">
-          Services
-        </h1>
-        <br />
-        <div
-          className="service-box flex mt-2 mx-1 justify-center gap-4 w-full"
-          id="service_container"
-        >
-          <Link to="/diet">
-            <div className="diet gap-3 bg-blue-500 w-[100%] h-60 flex flex-col items-center justify-center rounded-xl inner_boxes">
-              <span className="font-bold text-white text-2xl inner_span_1">
-                Diet Planner
-              </span>
-              <i class="fa-solid fa-bowl-food text-white text-6xl"></i>
-            </div>
-          </Link>
-          <Link to="/posture">
-            <div className="posture bg-blue-500 w-[100%] h-60 flex flex-col gap-3 items-center justify-center rounded-xl inner_boxes">
-              <span className="font-bold text-white text-2xl inner_span_2">
-                Posture Corrector
-              </span>
-              <i class="fa-solid fa-person  text-white text-6xl"></i>
-            </div>
-          </Link>
-          <Link to="/injury">
-            <div className="injury gap-3 bg-blue-500 w-[100%] h-60 flex flex-col items-center justify-center rounded-xl inner_boxes">
-              <span className="font-bold text-white text-2xl inner_span_3">
-                Injury And Risk Manager
-              </span>
-              <i class="fa-solid fa-user-injured  text-white text-6xl"></i>
-            </div>
-          </Link>
-          <Link to="/userexercise">
-            <div className=" exercise posture bg-blue-500 w-[100%] h-60 flex flex-col gap-3 items-center justify-center rounded-xl inner_boxes">
-              <span className="font-bold text-white text-2xl inner_span_4">
-                Exercise Recommender
-              </span>
-              <i class="fa-solid fa-person-walking text-white text-6xl"></i>
-            </div>
-          </Link>
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            Services
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              title={service.title}
+              icon={service.icon}
+              description={service.description}
+              to={service.path}
+              delay={index * 0.1}
+            />
+          ))}
         </div>
       </div>
-      <br />
-    </>
+    </section>
   );
 };
 

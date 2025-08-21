@@ -1,20 +1,13 @@
 import React from "react";
-import "./Logo.css";
+import logoImage from "../../../assets/logo.jpeg";
 
 const Logo = () => {
   return (
-    <div className="logo-content">
-      <div>
-        <img className="logo" src="./src/assets/logo.jpeg" alt="logo" />
+    <section className="py-16 bg-neutral-50">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+        <img className="rounded-full shadow-2xl w-48 h-48 object-cover" src={logoImage} alt="VPeakFit Logo" />
       </div>
-      <div className="quotes">
-        <h1 className="heading-qh">Indian Dietary guidelines</h1>
-        <h4 className="para-qh">
-          Advice about the amount and kinds <br /> of foods that we need to eat
-          <br /> for helth and welbeings
-        </h4>
-      </div>
-    </div>
+    </section>
   );
 };
 
